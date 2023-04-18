@@ -3,7 +3,7 @@ var http = require('http');
 
 const app = express();
 
-app.get("/I/want/title",  (req, res, next) => {
+app.get("/I/want/title", (req, res, next) => {
     const address = req.query.address;
 
     if (address.length < 1 || !address) {
@@ -25,21 +25,16 @@ app.get("/I/want/title",  (req, res, next) => {
     var titleResults = [];
 
     addressArr.forEach(element => {
-           
 
-            const addressParsed = new URL(element);
 
-            const options = {
-                hostname: addressParsed.hostname,
-                path: addressParsed.path
-              };
+        if (!element.startsWith('http://') && !element.startsWith('https://'))
+            element = 'http://' + element;
 
-        const webRequest = http.get(options, (response) => {
+        const webRequest = http.get(element, (response) => {
+            var rawData = "";
             response.on('data', (chunk) => {
                 rawData += chunk;
-
             });
-
 
             response.on('end', () => {
 
@@ -48,7 +43,7 @@ app.get("/I/want/title",  (req, res, next) => {
                 else titleResults.push({ title });
 
                 if (titleResults.length === addressArr.length) {
-                    
+
                     var html = '<html><head></head><body><h1> Following are the titles of given websites: </h1> <ul>';
 
                     titleResults.forEach(result => {
@@ -61,13 +56,12 @@ app.get("/I/want/title",  (req, res, next) => {
 
                 console.log("PageLoaded");
             });
-            console.log(titleResults);
         })
             .on("error", (err) => {
                 var html = '<html><head></head><body> <ul>';
                 html += `<li><p>${address} - NO RESPONSE<p></li>`;
                 res.status(404).send(html);
-            }); 
+            });
     });
 
 });
