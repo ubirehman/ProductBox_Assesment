@@ -51,7 +51,7 @@ app.get("/I/want/title", (req, res, next) => {
                     });
                     html += '</ul></body></html>';
 
-                    res.send(html);
+                    res.status(200).send(html);
                 }
 
                 console.log("PageLoaded");
