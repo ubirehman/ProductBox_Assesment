@@ -31,7 +31,7 @@ app.get("/I/want/title", (req, res, next) => {
             element = 'http://' + element;
 
         const webRequest = http.get(element, (response) => {
-            var rawData = "";
+             rawData = "";
             response.on('data', (chunk) => {
                 rawData += chunk;
             });
