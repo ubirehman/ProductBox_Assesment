@@ -1,11 +1,9 @@
 {
-  "scripts": {
-    "dev": "server.js"
-  },
   "dependencies": {
     "async": "^3.2.4",
     "axios": "^1.3.5",
     "express": "^4.18.2",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "rsvp": "^4.8.5"
   }
 }
